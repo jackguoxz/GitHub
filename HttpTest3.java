@@ -258,6 +258,7 @@ class Movie {
        //String Url="http://www.gewara.com/cinema/ajax/getCinemaPlayItem.xhtml?cid="+Integer.toString(myid)+"&mid=&fyrq=";
        
        //Change Url on 2014/9/4    
+       // Example: http://www.gewara.com/cinema/ajax/getOpiItemPage.xhtml?cid=59845909&mid=&fyrq=2014-09-03
        String Url="http://www.gewara.com/cinema/ajax/getOpiItemPage.xhtml?cid="+Integer.toString(myid)+"&mid=&fyrq=";
        ArrayList<String> namelist = new ArrayList<String>();
        ArrayList<String> idlist = new ArrayList<String>();
@@ -448,6 +449,7 @@ class Movie {
            }
            
            in.close();
+	   //Example: http://www.gewara.com/movie/ajax/getOpiItem.xhtml?movieid=152407002&fyrq=2014-09-03&isView=true&cid=59845909
            String Urlprefix="http://www.gewara.com/movie/ajax/getOpiItem.xhtml?movieid=";
            String Urlsuffix="&fyrq="+date+"&isView=true&cid="+Integer.toString(myid);
            int i=0,j=0,k=0;
