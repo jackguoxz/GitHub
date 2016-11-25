@@ -1,44 +1,41 @@
-package com.dianping.workflow;
+package WorkFlow;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-/**
- * Created by yuchao on 16/11/24.
- */
+
+
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        Node root = NodeFactory.createNode();
-        final CountDownLatch countDownLatch = new CountDownLatch(NodeFactory.getNNode());
-
-        ExecutorService pool = Executors.newFixedThreadPool(10);
-        WorkFlowEngine workFlowEngine = new WorkFlowEngine(pool);
-
-        System.out.println("-------begin---------");
-        long begin = System.currentTimeMillis();
-        workFlowEngine.walk(root, new NodeTask() {
-            @Override
-            public void doTask(Node node) {
-                quietRandomSleep(node);
-                countDownLatch.countDown();
-            }
-        });
-
-        countDownLatch.await();
-        System.out.println("-------begin---------");
-        System.out.println("cost " + (System.currentTimeMillis() - begin) + "ms");
-
-        pool.shutdown();
-    }
-
-    private static void quietRandomSleep(Node node) {
-        try {
-            System.out.println("processing node[" + node.getId() + "]");
-            Thread.sleep(node.getId() * 10);
-            System.out.println("end process node[" + node.getId() + "]");
-        } catch (InterruptedException e) {
+	
+	public static void main(String []args)
+	{
+		Node root=new Node();
+		Main instance=new Main();
+		NodeFactory factory=new NodeFactory();
+		factory.init(root);
+		System.out.println("total leaf is "+root.leaf());
+		System.out.println("total node is "+root.count());
+		CountDownLatch latch=new CountDownLatch(root.leaf());
+		WorkFlowEngine  pr=new WorkFlowEngine(root,latch);
+		pr.walk(root);
+		System.out.println("end is "+pr.end.getCount());
+		try{
+            latch.await();            //等待end状态变为0，即为比赛结束
+        }catch (InterruptedException e) {
+            // TODO: handle exception
             e.printStackTrace();
-        }
-    }
+        }finally{
+            //System.out.println("Race ends!");            
+        }		
+		System.out.println("Race ends here!");
+		long end2 = System.currentTimeMillis();
+		//System.out.println(end2-end);
+		System.out.println("----------");
+		//pr.processorExecutor.shutdown();
+		pr.pool.shutdown();
+		System.out.println(pr.ticks.num);
+		
+	}
+	
+	
+
 }

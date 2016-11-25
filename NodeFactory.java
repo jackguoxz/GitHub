@@ -1,43 +1,48 @@
-package com.dianping.workflow;
-
+package WorkFlow;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class NodeFactory {
 
 
-// create a node graph like this
-//        1
-//      / | \
-//     2  3  4
-//    /  /|  |
-//   5--' 6  |
-//   \     \ /
-//    `-----7
 
-    public static Node createNode() {
-
-        Node node1 = new Node(1, 0);
-        Node node2 = new Node(2, 1);
-        Node node3 = new Node(3, 1);
-        Node node4 = new Node(4, 1);
-        Node node5 = new Node(5, 2);
-        Node node6 = new Node(6, 1);
-        Node node7 = new Node(7, 3);
-
-        node1.setPostNodeList(Arrays.asList(node2, node3, node4));
-        node2.setPostNodeList(Arrays.asList(node5));
-        node3.setPostNodeList(Arrays.asList(node5, node6));
-        node4.setPostNodeList(Arrays.asList(node7));
-        node5.setPostNodeList(Arrays.asList(node7));
-        node6.setPostNodeList(Arrays.asList(node7));
-        node7.setPostNodeList(new ArrayList<Node>());
-
-        return node1;
-    }
-
-    public static int getNNode() {
-        return 7;
-    }
+	public NodeFactory()
+	{
+		
+	}
+	public void init(Node root) {
+		// TODO Auto-generated method stub
+		
+		root.setint(1);
+		
+		ArrayList<Node> next=new ArrayList<Node>();
+		for(int i=2;i<5;i++)
+		{
+			Node n=new Node();
+			n.setint(i);
+			n.setnext(null);
+			next.add(n);
+			//n.setnext(nextnode);
+		}
+		root.next=next;
+		Node n=new Node();
+		ArrayList<Node> next2=root.next;
+		int i=5;
+	    for(Node no:next2)
+	    {
+	    	
+	    	ArrayList<Node> next3=new ArrayList<Node>();
+			for( i=6;i<1000;i++)
+			{
+				Node n2=new Node();
+				n2.setint(i);
+				n2.setnext(null);
+				next3.add(n2);
+				//n.setnext(nextnode);
+			}
+	    	no.next=next3;
+	    	next3=null;
+	    }
+		
+	}
 }
