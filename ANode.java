@@ -3,9 +3,6 @@ package com.dianping.workflow;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * Created by yuchao on 16/11/24.
- */
 public class ANode {
     private int id;
     private volatile boolean started = false;
