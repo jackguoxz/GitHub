@@ -4,9 +4,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Created by yuchao on 16/11/24.
- */
 public class AMain {
     public static void main(String[] args) throws InterruptedException {
         ANode root = ANodeFactory.createNode();
