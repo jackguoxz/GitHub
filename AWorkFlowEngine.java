@@ -2,9 +2,6 @@ package com.dianping.workflow;
 
 import java.util.concurrent.Executor;
 
-/**
- * Created by yuchao on 16/11/24.
- */
 public class AWorkFlowEngine {
     private Executor pool;
 
